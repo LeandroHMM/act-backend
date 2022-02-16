@@ -1,10 +1,10 @@
 import { User } from "@entities/Users/types";
 
 export interface UserRepository {
-  create(user: CreateUserDTO): UserReturned;
-  update(user: UpdateUserDTO): UserReturned;
-  getById(id: string): User;
-  getBy(params: GetByDTO): User[];
+  create(user: CreateUserDTO): Promise<UserReturned>;
+  update(id: string, user: UpdateUserDTO): Promise<UserReturned>;
+  getById(id: string): Promise<UserReturned | null>;
+  getBy(params: GetByDTO): Promise<UserReturned[]>;
 }
 
 export type UserReturned = {
@@ -14,12 +14,12 @@ export type UserReturned = {
   isAdmin: boolean;
   isActive: boolean;
 };
-type CreateUserDTO = {
+export type CreateUserDTO = {
   name: User["name"];
   email: User["email"];
   password: User["password"];
 };
-type UpdateUserDTO = {
+export type UpdateUserDTO = {
   name: User["name"];
 };
 type GetByDTO = {
